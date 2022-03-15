@@ -39,21 +39,12 @@ const divTarea = (tarea)=>{
 }
 
 window.renderizarTarea = (tareas) => {
-    /**
-     * const cardsEnDiv = divTarea.children;
-     console.log(cardsEnDiv)
-    if (cardsEnDiv.length > 0) {
-        const cards = Array.from(cardsEnDiv);
-        cards.forEach((card) => {
-            divTarea.removeChild(card);
-        })
-    }
-     */
     const divTareas = document.getElementById("divTareas")
     console.log(divTareas)
      while (divTareas.firstChild) {
          divTareas.removeChild(divTareas.firstChild);
      }
+     
     tareas.forEach((tarea) => {
         const card = divTarea(tarea);
         elementos.divTarea.insertAdjacentHTML('afterbegin', card);
