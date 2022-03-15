@@ -49,7 +49,11 @@ window.renderizarTarea = (tareas) => {
         })
     }
      */
-     
+    const divTareas = document.getElementById("divTareas")
+    console.log(divTareas)
+     while (divTareas.firstChild) {
+         divTareas.removeChild(divTareas.firstChild);
+     }
     tareas.forEach((tarea) => {
         const card = divTarea(tarea);
         elementos.divTarea.insertAdjacentHTML('afterbegin', card);
