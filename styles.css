@@ -1,0 +1,17 @@
+body {
+    width: 100wh;
+    height: 100vh;
+}
+input{
+    width: 100%;
+}
+p{
+    text-align: center;
+    margin: 0;
+}
+.pointer {
+    cursor: pointer;
+}
+.complete {
+    text-decoration: line-through;
+}
