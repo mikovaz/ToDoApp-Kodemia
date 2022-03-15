@@ -1,4 +1,4 @@
-import {tareas, elementos} from './Global.js'
+import {tareas, elementos, numeroTareasPendientes} from './Global.js'
 
 const init = ()=>{
     initTodo()
@@ -20,7 +20,9 @@ window.guardaTarea = (e) => {
     tareas.tarea.push(tarea);
     tareas.guardarStorage();
     window.renderizarTarea(tareas.tarea);
-    console.log(tareas.tarea)
+    console.log(tareas.tarea.length)
+    console.log(numeroTareasPendientes)
+    numeroTareasPendientes.innerText = tareas.tarea.length
 }
 
 const divTarea = (tarea)=>{
@@ -36,7 +38,6 @@ const divTarea = (tarea)=>{
 
 window.renderizarTarea = (tareas) => {
     const divTareas = document.getElementById("divTareas")
-    console.log(divTareas)
      while (divTareas.firstChild) {
          divTareas.removeChild(divTareas.firstChild);
      }
@@ -46,3 +47,5 @@ window.renderizarTarea = (tareas) => {
         elementos.divTarea.insertAdjacentHTML('afterbegin', card);
     });
 }
+
+
