@@ -26,7 +26,7 @@ window.guardaTarea = (e) => {
 }
 
 const divTarea = (tarea)=>{
-    const div = `<div class="d-flex justify-content-between align-items-center pointer" ondblclick="dobleClickTarea(id)">
+    const div = `<div class="d-flex justify-content-between align-items-center pointer" ondblclick="dobleClickTarea()">
                         <p class="fw-bold">${tarea.nombreTarea}</p>
                         <div>
                             <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -46,6 +46,10 @@ window.renderizarTarea = (tareas) => {
         const card = divTarea(tarea);
         elementos.divTarea.insertAdjacentHTML('afterbegin', card);
     });
+}
+
+window.dobleClickTarea = () => {
+    
 }
 
 
