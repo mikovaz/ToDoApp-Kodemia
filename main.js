@@ -19,11 +19,7 @@ window.guardaTarea = (e) => {
     tarea.id = `${tiempoActual.getTime()}-${tiempoActual.getMilliseconds()}`;
     tareas.tarea.push(tarea);
     tareas.guardarStorage();
-    //elementos.alertaGuardar.style.display = '';
-    setTimeout(() => {
-       // elementos.alertaGuardar.style.display = 'none';
-        window.renderizarTarea(tareas.tarea);
-    }, 1000);
+    window.renderizarTarea(tareas.tarea);
     console.log(tareas.tarea)
 }
 
@@ -44,7 +40,7 @@ window.renderizarTarea = (tareas) => {
      while (divTareas.firstChild) {
          divTareas.removeChild(divTareas.firstChild);
      }
-     
+
     tareas.forEach((tarea) => {
         const card = divTarea(tarea);
         elementos.divTarea.insertAdjacentHTML('afterbegin', card);
