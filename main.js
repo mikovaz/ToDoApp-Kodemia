@@ -94,11 +94,9 @@ window.dobleClickTarea = (id) => {
             if (idPChecker == false){
                 tareas.tarea[i].tareaCompletada = true
                 tareas.guardarStorage()
-                console.log(`entro al if y ${tareas.tarea[i].tareaCompletada}`)
             } else {
                 tareas.tarea[i].tareaCompletada = false
                 tareas.guardarStorage()
-                console.log(`entro al else y ${tareas.tarea[i].tareaCompletada}`)
             }
         }
     }
