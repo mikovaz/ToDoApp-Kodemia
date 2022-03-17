@@ -1,4 +1,4 @@
-import {tareas, elementos, numeroTareasPendientes} from './Global.js'
+import {tareas, elementos, numeroTareasPendientes, numeroTareasCompletadas} from './Global.js'
 
 const init = ()=>{
     initTodo()
@@ -8,7 +8,7 @@ const init = ()=>{
 const initTodo = ()=>{
     tareas.cargarLocalTarea()
     window.renderizarTarea(tareas.tarea)
-    numeroTareasPendientes.innerText = tareas.tarea.length
+    contadorTareas()
 }
 
 window.guardaTarea = (e) => {
@@ -19,12 +19,12 @@ window.guardaTarea = (e) => {
     let tarea = {}
     tarea.nombreTarea = inputsNode.value;
     tarea.id = `${tiempoActual.getTime()}-${tiempoActual.getMilliseconds()}`;
+    tarea.tareaCompletada = false;
     tareas.tarea.push(tarea);
     tareas.guardarStorage();
     window.renderizarTarea(tareas.tarea);
-    console.log(tareas.tarea.length)
-    console.log(numeroTareasPendientes)
-    numeroTareasPendientes.innerText = tareas.tarea.length
+    inputsNode.value = ''
+    contadorTareas()    
 }
 
 const divTarea = (tarea)=>{
@@ -47,6 +47,13 @@ window.renderizarTarea = (tareas) => {
     tareas.forEach((tarea) => {
         const card = divTarea(tarea);
         elementos.divTarea.insertAdjacentHTML('afterbegin', card);
+        const divClase = elementos.divTarea.firstChild
+        if (tarea.tareaCompletada == true) {
+            let childDiv = divClase.firstChild
+            let pChildDiv =childDiv.nextElementSibling
+            divClase.classList.add('border-success')
+            pChildDiv.classList.add('complete')
+        }
     });
 }
 
@@ -59,7 +66,7 @@ window.eliminarTarea = (id)=>{
     tareas.tarea=data
     tareas.guardarStorage()
     renderizarTarea(tareas.tarea)
-    numeroTareasPendientes.innerText = tareas.tarea.length
+    contadorTareas()
 
 }
 
@@ -74,19 +81,42 @@ window.modificarTarea = (id) =>{
 }
 
 window.dobleClickTarea = (id) => {
-    let pivo
     const idP = document.getElementById(`${id}`)
-    const varTareComple= document.getElementById('tareasCompletas')
-    console.log(idP)
-    pivo = idP.classList.toggle('complete')
-    console.log(pivo)
-    if(pivo == true ) tareas.tareaCompleta++
-   
-        else tareas.tareaCompleta--
-     
-    varTareComple.innerText = tareas.tareaCompleta
+    let idPChecker = idP.classList.contains('complete')
+    idP.classList.toggle('complete')
     const parentDeP = document.getElementById(`${id}`).parentElement;
     parentDeP.classList.toggle('border-success')
+
+    let lengthArrayToDo = tareas.tarea.length;
+    for (let i = 0; i < lengthArrayToDo; i++){
+        if (tareas.tarea[i].id == id){
+            if (idPChecker == false){
+                tareas.tarea[i].tareaCompletada = true
+                tareas.guardarStorage()
+                console.log(`entro al if y ${tareas.tarea[i].tareaCompletada}`)
+            } else {
+                tareas.tarea[i].tareaCompletada = false
+                tareas.guardarStorage()
+                console.log(`entro al else y ${tareas.tarea[i].tareaCompletada}`)
+            }
+        }
+    }
+
+    contadorTareas()
+    tareas.guardarStorage()
 }
 
+const contadorTareas = () => {
+    let contadorTareasPendientes = tareas.tarea.filter(tarea => tarea.tareaCompletada == false);
+
+
+    let contadorTareasCompletadas = tareas.tarea.filter(tarea => tarea.tareaCompletada == true)
+
+    numeroTareasPendientes.innerText = contadorTareasPendientes.length
+    numeroTareasCompletadas.innerText = contadorTareasCompletadas.length
+
+    tareas.guardarStorage()
+    }
+
 initTodo()
+contadorTareas()

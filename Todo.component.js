@@ -1,6 +1,5 @@
 export default class Todo{
     tarea= []
-    tareaCompleta =0
     cargarLocalTarea(){
         const tareasLocal = localStorage.getItem('tareas')
         if (tareasLocal) {
