@@ -6,7 +6,9 @@ const init = ()=>{
 }
 
 const initTodo = ()=>{
-
+    tareas.cargarLocalTarea()
+    window.renderizarTarea(tareas.tarea)
+    numeroTareasPendientes.innerText = tareas.tarea.length
 }
 
 window.guardaTarea = (e) => {
@@ -26,11 +28,11 @@ window.guardaTarea = (e) => {
 }
 
 const divTarea = (tarea)=>{
-    const div = `<div class="d-flex justify-content-between align-items-center pointer" ondblclick="dobleClickTarea()">
-                        <p class="fw-bold">${tarea.nombreTarea}</p>
+    const div = `<div class="d-flex justify-content-between align-items-center pointer border rounded p-2" ondblclick="dobleClickTarea('${tarea.id}')">
+                        <p id=${tarea.id} class="fw-bold">${tarea.nombreTarea}</p>
                         <div>
-                            <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            <button  class="btn btn-primary" onclick="modificarTarea('${tarea.id}')"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn btn-danger" onclick="eliminarTarea('${tarea.id}')"><i class="fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>`
     return div
@@ -48,8 +50,42 @@ window.renderizarTarea = (tareas) => {
     });
 }
 
-window.dobleClickTarea = () => {
+window.eliminarTarea = (id)=>{
+    console.log('Entro '+id)
+    const data = tareas.tarea.filter((tarea) => {
+        return tarea.id != id;
+    });
+    console.log(data)
+    tareas.tarea=data
+    tareas.guardarStorage()
+    renderizarTarea(tareas.tarea)
+}
+
+window.modificarTarea = (id) =>{
+    let nombreTarea = prompt('Modifica tu tarea')
+    const tarea = tareas.tarea.find((tarea) => {
+        return tarea.id == id
+    })
+    console.log(tarea)
+    tarea.nombreTarea = nombreTarea
+    renderizarTarea(tareas.tarea)
     
 }
 
+window.dobleClickTarea = (id) => {
+    let pivo
+    const idP = document.getElementById(`${id}`)
+    const varTareComple= document.getElementById('tareasCompletas')
+    console.log(idP)
+    pivo = idP.classList.toggle('complete')
+    console.log(pivo)
+    if(pivo == true ) tareas.tareaCompleta++
+   
+        else tareas.tareaCompleta--
+     
+    varTareComple.innerText = tareas.tareaCompleta
+    const parentDeP = document.getElementById(`${id}`).parentElement;
+    parentDeP.classList.toggle('border-success')
+}
 
+initTodo()
