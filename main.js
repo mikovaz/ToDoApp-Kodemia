@@ -59,6 +59,8 @@ window.eliminarTarea = (id)=>{
     tareas.tarea=data
     tareas.guardarStorage()
     renderizarTarea(tareas.tarea)
+    numeroTareasPendientes.innerText = tareas.tarea.length
+
 }
 
 window.modificarTarea = (id) =>{
@@ -69,7 +71,6 @@ window.modificarTarea = (id) =>{
     console.log(tarea)
     tarea.nombreTarea = nombreTarea
     renderizarTarea(tareas.tarea)
-    
 }
 
 window.dobleClickTarea = (id) => {
