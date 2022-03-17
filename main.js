@@ -78,6 +78,7 @@ window.modificarTarea = (id) =>{
     console.log(tarea)
     tarea.nombreTarea = nombreTarea
     renderizarTarea(tareas.tarea)
+    tareas.guardarStorage()
 }
 
 window.dobleClickTarea = (id) => {
