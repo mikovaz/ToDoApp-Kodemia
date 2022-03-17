@@ -1,14 +1,14 @@
 import {tareas, elementos, numeroTareasPendientes, numeroTareasCompletadas} from './Global.js'
 
 const init = ()=>{
-    initTodo()
+    initTodo();
     
 }
 
 const initTodo = ()=>{
-    tareas.cargarLocalTarea()
-    window.renderizarTarea(tareas.tarea)
-    contadorTareas()
+    tareas.cargarLocalTarea();
+    window.renderizarTarea(tareas.tarea);
+    contadorTareas();
 }
 
 window.guardaTarea = (e) => {
@@ -23,8 +23,8 @@ window.guardaTarea = (e) => {
     tareas.tarea.push(tarea);
     tareas.guardarStorage();
     window.renderizarTarea(tareas.tarea);
-    inputsNode.value = ''
-    contadorTareas()    
+    inputsNode.value = '';
+    contadorTareas();
 }
 
 const divTarea = (tarea)=>{
@@ -34,12 +34,12 @@ const divTarea = (tarea)=>{
                             <button  class="btn btn-primary" onclick="modificarTarea('${tarea.id}')"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button class="btn btn-danger" onclick="eliminarTarea('${tarea.id}')"><i class="fa-solid fa-trash-can"></i></button>
                         </div>
-                    </div>`
-    return div
+                    </div>`;
+    return div;
 }
 
 window.renderizarTarea = (tareas) => {
-    const divTareas = document.getElementById("divTareas")
+    const divTareas = document.getElementById("divTareas");
      while (divTareas.firstChild) {
          divTareas.removeChild(divTareas.firstChild);
      }
@@ -47,75 +47,74 @@ window.renderizarTarea = (tareas) => {
     tareas.forEach((tarea) => {
         const card = divTarea(tarea);
         elementos.divTarea.insertAdjacentHTML('afterbegin', card);
-        const divClase = elementos.divTarea.firstChild
+        const divClase = elementos.divTarea.firstChild;
         if (tarea.tareaCompletada == true) {
-            let childDiv = divClase.firstChild
-            let pChildDiv =childDiv.nextElementSibling
-            divClase.classList.add('border-success')
-            pChildDiv.classList.add('complete')
+            let childDiv = divClase.firstChild;
+            let pChildDiv =childDiv.nextElementSibling;
+            divClase.classList.add('border-success');
+            pChildDiv.classList.add('complete');
         }
     });
 }
 
 window.eliminarTarea = (id)=>{
-    console.log('Entro '+id)
     const data = tareas.tarea.filter((tarea) => {
         return tarea.id != id;
     });
-    console.log(data)
-    tareas.tarea=data
-    tareas.guardarStorage()
-    renderizarTarea(tareas.tarea)
-    contadorTareas()
+    console.log(data);
+    tareas.tarea = data;
+    tareas.guardarStorage();
+    renderizarTarea(tareas.tarea);
+    contadorTareas();
 
 }
 
 window.modificarTarea = (id) =>{
-    let nombreTarea = prompt('Modifica tu tarea')
+    let nombreTarea = prompt('Modifica tu tarea');
     const tarea = tareas.tarea.find((tarea) => {
-        return tarea.id == id
+        return tarea.id == id;
     })
-    console.log(tarea)
-    tarea.nombreTarea = nombreTarea
-    renderizarTarea(tareas.tarea)
-    tareas.guardarStorage()
+    console.log(tarea);
+    tarea.nombreTarea = nombreTarea;
+    renderizarTarea(tareas.tarea);
+    tareas.guardarStorage();
 }
 
 window.dobleClickTarea = (id) => {
-    const idP = document.getElementById(`${id}`)
-    let idPChecker = idP.classList.contains('complete')
-    idP.classList.toggle('complete')
+    const idP = document.getElementById(`${id}`);
+    let idPChecker = idP.classList.contains('complete');
+    idP.classList.toggle('complete');
     const parentDeP = document.getElementById(`${id}`).parentElement;
-    parentDeP.classList.toggle('border-success')
+    parentDeP.classList.toggle('border-success');
 
     let lengthArrayToDo = tareas.tarea.length;
     for (let i = 0; i < lengthArrayToDo; i++){
         if (tareas.tarea[i].id == id){
             if (idPChecker == false){
-                tareas.tarea[i].tareaCompletada = true
-                tareas.guardarStorage()
+                tareas.tarea[i].tareaCompletada = true;
+                tareas.guardarStorage();
             } else {
-                tareas.tarea[i].tareaCompletada = false
-                tareas.guardarStorage()
+                tareas.tarea[i].tareaCompletada = false;
+                tareas.guardarStorage();
             }
         }
     }
 
-    contadorTareas()
-    tareas.guardarStorage()
+    contadorTareas();
+    tareas.guardarStorage();
 }
 
 const contadorTareas = () => {
     let contadorTareasPendientes = tareas.tarea.filter(tarea => tarea.tareaCompletada == false);
 
 
-    let contadorTareasCompletadas = tareas.tarea.filter(tarea => tarea.tareaCompletada == true)
+    let contadorTareasCompletadas = tareas.tarea.filter(tarea => tarea.tareaCompletada == true);
 
-    numeroTareasPendientes.innerText = contadorTareasPendientes.length
-    numeroTareasCompletadas.innerText = contadorTareasCompletadas.length
+    numeroTareasPendientes.innerText = contadorTareasPendientes.length;
+    numeroTareasCompletadas.innerText = contadorTareasCompletadas.length;
 
-    tareas.guardarStorage()
+    tareas.guardarStorage();
     }
 
-initTodo()
-contadorTareas()
+initTodo();
+contadorTareas();
