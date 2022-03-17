@@ -5,7 +5,7 @@ export const numeroTareasPendientes = document.getElementById('tareasPendientes'
 export const numeroTareasCompletadas = document.getElementById('tareasCompletas');
 
 export const elementos = {
-    divTarea: document.getElementById('divTareas');
+    divTarea: document.getElementById('divTareas')
 }
 
 
