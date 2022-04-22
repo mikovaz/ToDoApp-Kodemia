@@ -1,7 +1,10 @@
-const taskRoute = require("./tasks")
+const taskRoute = require("./tasks");
+const userRoute = require("./users");
+const authRoute = require("./auth");
+const apiRouter = (app) => {
+  app.use("/todo", taskRoute);
+  app.use("/user", userRoute);
+  app.use("/auth", authRoute);
+};
 
-const apiRouter= (app)=>{
-    app.use("/todo",taskRoute)
-}
-
-module.exports=apiRouter
+module.exports = apiRouter;

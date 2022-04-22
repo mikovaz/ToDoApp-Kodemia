@@ -26,9 +26,14 @@ const update = async (id, name) => {
   return await task.save();
 };
 
+const patch = async (id, taskData) => {
+  return await Task.findByIdAndUpdate(id, { ...taskData }).exec();
+};
+
 module.exports = {
   get,
   getById,
   create,
   update,
+  patch,
 };
