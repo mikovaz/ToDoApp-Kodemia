@@ -1,13 +1,12 @@
 const express = require("express");
-const db = require("./lib/db")
-const config = require("./lib/config")
+const db = require("./src/lib/db")
+const config = require("./src/lib/config")
 const app = express();
 const port = config.app.port;
+const apiRouter = require("./src/routes")
 
 app.use(express.json());
-
-
-
+apiRouter(app)
 app.listen(port, () => {
     console.log(
         `Bienvenido a ${config.app.name}, escuchando desde el puerto ${port}`
